@@ -6,6 +6,7 @@ class EquipeSuport extends Model {
         super.init({
             ativo: DataTypes.BOOLEAN,
             nome: DataTypes.STRING,
+            telefone: DataTypes.INTEGER,
         }, {
             sequelize
         })

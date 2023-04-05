@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      ilha: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       equipamentoComDefeito: {
         type: Sequelize.STRING,
         allowNull: true,

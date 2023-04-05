@@ -23,6 +23,10 @@ router.get('/listarTodosChamados', ChamadoController.listarTodosChamados);
 //Rota para listar todos chamados abertos
 router.get('/listarChamadosAbertos', ChamadoController.listarChamadosAbertos);
 
+
+//Rota para listar todos chamados com status aberto
+router.get('/listarChamadosComStatusAberto', ChamadoController.listarChamadosComStatusAberto);
+
 //Rota para deletar chamado do banco de dados
 router.delete('/deletarChamado/:id', ChamadoController.deletarChamado);
 
@@ -66,6 +70,9 @@ router.post('/criarEquipeSuport', EquipeSuportController.createEquipeSuport);
 //Rota para alterar o campo ativo de true para false  do EquipeSuport, pelo id
 router.put('/updateCampoAtivoEquipeSuport/:id', EquipeSuportController.updateCampoAtivoEquipeSuport);
 
+//Rota para atualizar o campo telefone do EquipeSuport, pelo id
+router.put('/updateTelefoneEquipeSuport/:id', EquipeSuportController.updateTelefoneEquipeSuport);
+
 //Rota para listar todos os EquipeSuport(ativos e finalizados) do banco de dados
 router.get('/listarTodosEquipeSuport', EquipeSuportController.listarTodosEquipeSuports);
 
@@ -83,6 +90,9 @@ router.post('/criarSetor', SetorController.createSetor);
 
 //Rota para alterar o campo ativo de true para false  do Setor, pelo id
 router.put('/updateCampoAtivoSetor/:id', SetorController.updateCampoAtivoSetor);
+
+//Rota para atualizar o campo telefone do Setor, pelo id
+router.put('/updateTelefoneSetor/:id', SetorController.updateTelefoneSetor);
 
 //Rota para listar todos os Setores(ativos e finalizados) do banco de dados
 router.get('/listarTodosSetores', SetorController.listarTodosSetores);
@@ -102,6 +112,9 @@ router.post('/criarSubSetor', SubSetorController.createSubSetor);
 
 //Rota para alterar o campo ativo de true para false  do SubSetor, pelo id
 router.put('/updateCampoAtivoSubSetor/:id', SubSetorController.updateCampoAtivoSubSetor);
+
+//Rota para atualizar o campo telefone do SubSetor, pelo id
+router.put('/updateTelefoneSubSetor/:id', SubSetorController.updateTelefoneSubSetor);
 
 //Rota para listar todos os SubSetores(ativos e finalizados) do banco de dados
 router.get('/listarTodosSubSetores', SubSetorController.listarTodosSubSetores);

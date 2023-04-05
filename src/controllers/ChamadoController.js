@@ -6,8 +6,8 @@ module.exports = {
     // Método criar chamado
     async createChamado(req, res) {
         try {
-            const { aberto, nome, setor, subSetor, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
-            const chamado = await IChamado.create({ aberto, nome, setor, subSetor, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao })
+            const { aberto, nome, setor, subSetor, ilha, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
+            const chamado = await IChamado.create({ aberto, nome, setor, subSetor, ilha, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao })
             res.status(200).json(`Chamado criado com sucesso.${chamado}`)
         } catch (error) {
             res.status(400).json({ error })
@@ -18,8 +18,8 @@ module.exports = {
     async updateChamado(req, res) {
         try {
             const { id } = req.params;
-            const { subSetor, equipamentoComDefeito, equipeSuport, equipamentoTombo, status, observacao } = req.body
-            const chamado = await IChamado.update({ subSetor, equipamentoComDefeito, equipeSuport, equipamentoTombo, status, observacao }, { where: { id } })
+            const { subSetor, equipamentoComDefeito, equipeSuport, ilha, equipamentoTombo, status, observacao } = req.body
+            const chamado = await IChamado.update({ subSetor, equipamentoComDefeito, equipeSuport, ilha, equipamentoTombo, status, observacao }, { where: { id } })
             res.status(200).json("Chamado atualizado com sucesso.")
         } catch (error) {
             res.status(400).json({ error })
@@ -58,6 +58,19 @@ module.exports = {
         try {
             const chamados = await IChamado.findAll({
                 where: { aberto: true }, // atributos
+                order: [['id', 'DESC']] //literal 'id', ordem 'DESC'
+            }) // OU 'ASC PARE ORDEM CRESCENTE
+            res.status(200).json(chamados)
+
+        } catch (error) {
+            res.status(400).json({ error })
+        }
+    },
+     // Lista os chamado do banco de dados com o campo status = ABERTO 
+     async listarChamadosComStatusAberto(req, res) {
+        try {
+            const chamados = await IChamado.findAll({
+                where: { status:'ABERTO' }, // atributos
                 order: [['id', 'DESC']] //literal 'id', ordem 'DESC'
             }) // OU 'ASC PARE ORDEM CRESCENTE
             res.status(200).json(chamados)

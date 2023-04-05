@@ -9,5 +9,5 @@ app.use(express.json())
 
 app.use(routes)
 
-app.listen(3030, () => console.log("Servidor iniciado na porta 3030"));
+app.listen(3032, () => console.log("Servidor iniciado na porta 3032"));
 

@@ -6,8 +6,8 @@ module.exports = {
     // Método criar subSetor
     async createSubSetor(req, res) {
         try {
-            const { ativo, nome, nomeSetor} = req.body
-            const subSetor = await ISubSetor.create({ ativo, nome, nomeSetor})
+            const { ativo, nome, nomeSetor, telefone} = req.body
+            const subSetor = await ISubSetor.create({ ativo, nome, nomeSetor, telefone})
             res.status(200).json(`subSetor ${subSetor.nome} criado com sucesso.`)
         } catch (error) {
             res.status(400).json({ error })
@@ -70,5 +70,17 @@ module.exports = {
         } catch (error) {
             res.status(400).json({ error })
         }
-    },    
+    },
+
+     // Método para atualizar o telefone do subSetor pelo id
+     async updateTelefoneSubSetor(req, res) {
+        try {
+            const { id } = req.params;
+            const { telefone } = req.body
+            const chamado = await ISubSetor.update({ telefone}, { where: { id } })
+            res.status(200).json("Telefone do subSetor atualizado com sucesso.")
+        } catch (error) {
+            res.status(400).json({ error })
+        }
+    },
 }

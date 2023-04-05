@@ -8,6 +8,7 @@ class Chamados extends Model {
             nome: DataTypes.STRING,
             setor: DataTypes.STRING,
             subSetor: DataTypes.STRING,
+            ilha: DataTypes.STRING,
             equipamentoComDefeito:DataTypes.STRING,
             equipamentoTombo:DataTypes.STRING,
             descricao:DataTypes.STRING,

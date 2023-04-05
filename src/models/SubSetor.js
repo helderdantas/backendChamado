@@ -7,6 +7,7 @@ class SubSetor extends Model {
             ativo: DataTypes.BOOLEAN,
             nome: DataTypes.STRING,
             nomeSetor: DataTypes.STRING,
+            telefone: DataTypes.INTEGER,
         }, {
             sequelize
         })

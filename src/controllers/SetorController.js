@@ -6,8 +6,8 @@ module.exports = {
     // Método criar setor
     async createSetor(req, res) {
         try {
-            const { ativo, nome} = req.body
-            const setor = await ISetor.create({ ativo, nome})
+            const { ativo, nome,telefone} = req.body
+            const setor = await ISetor.create({ ativo, nome, telefone})
             res.status(200).json(`setor criado com sucesso.${setor.nome}`)
         } catch (error) {
             res.status(400).json({ error })
@@ -70,5 +70,19 @@ module.exports = {
         } catch (error) {
             res.status(400).json({ error })
         }
-    },    
+    },
+
+      // Método para atualizar o telefone do setor pelo id
+      async updateTelefoneSetor(req, res) {
+        try {
+            const { id } = req.params;
+            const { telefone } = req.body
+            const chamado = await ISetor.update({ telefone}, { where: { id } })
+            res.status(200).json("Telefone do setor atualizado com sucesso.")
+        } catch (error) {
+            res.status(400).json({ error })
+        }
+    },
+    
+    
 }
