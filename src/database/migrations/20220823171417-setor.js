@@ -3,14 +3,15 @@
 const sequelize = require("sequelize");
 // MIGRATION PARA CRIAR A TABELA NO BANCO DE DADOS
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Setors', {
+  async up (queryInterface, Sequelize){
+    await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_setores start 1 increment 1');
+    await queryInterface.createTable('Setors', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoInclemente: true,
         allowNull: false,
-        defaultValue: sequelize.Sequelize.literal("nextval('id_seq_setor')"), //PARA CRIAR A SEQUENCIA DE ID NO BANCO POSTGRES
+        defaultValue: sequelize.Sequelize.literal("nextval('id_seq_setores')"), //PARA CRIAR A SEQUENCIA DE ID NO BANCO POSTGRES
       },
       ativo: {
         type: Sequelize.BOOLEAN,
@@ -22,7 +23,7 @@ module.exports = {
       },
       telefone: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -35,8 +36,9 @@ module.exports = {
     })
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Setors');
+  async down (queryInterface, Sequelize){
+    await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_setores start 1 increment 1');
+    await queryInterface.dropTable('Setors');
 
   }
 };

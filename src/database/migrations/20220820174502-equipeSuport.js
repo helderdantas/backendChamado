@@ -3,8 +3,9 @@
 const sequelize = require("sequelize");
 // MIGRATION PARA CRIAR A TABELA NO BANCO DE DADOS
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('EquipeSuports', {
+ async up (queryInterface, Sequelize){
+    await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_equipesuport start 1 increment 1');
+    await queryInterface.createTable('EquipeSuports', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -35,8 +36,9 @@ module.exports = {
     })
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('EquipeSuports');
+  async down(queryInterface, Sequelize){
+    await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_equipesuport start 1 increment 1');
+    await queryInterface.dropTable('EquipeSuports');
 
   }
 };

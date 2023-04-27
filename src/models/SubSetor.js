@@ -1,13 +1,13 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, Sequelize } = require('sequelize');
 
 // classe criar para interagir com o banco de dados
 class SubSetor extends Model {
     static init(sequelize) {
         super.init({
-            ativo: DataTypes.BOOLEAN,
-            nome: DataTypes.STRING,
-            nomeSetor: DataTypes.STRING,
-            telefone: DataTypes.INTEGER,
+            ativo: Sequelize.BOOLEAN,
+            nome: Sequelize.STRING,
+            nomeSetor: Sequelize.STRING,
+            telefone: Sequelize.INTEGER,
         }, {
             sequelize
         })

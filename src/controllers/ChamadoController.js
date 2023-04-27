@@ -6,8 +6,9 @@ module.exports = {
     // Método criar chamado
     async createChamado(req, res) {
         try {
-            const { aberto, nome, setor, subSetor, ilha, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
-            const chamado = await IChamado.create({ aberto, nome, setor, subSetor, ilha, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao })
+            console.log('entrei aqui')
+            const { aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
+            const chamado = await IChamado.create({ aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao })
             res.status(200).json(`Chamado criado com sucesso.${chamado}`)
         } catch (error) {
             res.status(400).json({ error })
@@ -18,8 +19,8 @@ module.exports = {
     async updateChamado(req, res) {
         try {
             const { id } = req.params;
-            const { subSetor, equipamentoComDefeito, equipeSuport, ilha, equipamentoTombo, status, observacao } = req.body
-            const chamado = await IChamado.update({ subSetor, equipamentoComDefeito, equipeSuport, ilha, equipamentoTombo, status, observacao }, { where: { id } })
+            const { aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora,telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
+            const chamado = await IChamado.update({aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao  }, { where: { id } })
             res.status(200).json("Chamado atualizado com sucesso.")
         } catch (error) {
             res.status(400).json({ error })
@@ -56,14 +57,19 @@ module.exports = {
     // Lista os chamado do banco de dados com o campo aberto = true 
     async listarChamadosAbertos(req, res) {
         try {
+            console.log('entrei')
             const chamados = await IChamado.findAll({
                 where: { aberto: true }, // atributos
                 order: [['id', 'DESC']] //literal 'id', ordem 'DESC'
             }) // OU 'ASC PARE ORDEM CRESCENTE
+            if (!chamados) {
+                res.status(401).json("Não há nenhum chamado")
+            }else{
             res.status(200).json(chamados)
+            }
 
         } catch (error) {
-            res.status(400).json({ error })
+            res.status(400).json({error})
         }
     },
      // Lista os chamado do banco de dados com o campo status = ABERTO 
@@ -98,6 +104,7 @@ module.exports = {
     },
 
     async chamadosPorSetor(req, res) {
+        console.log('chequei no setor')
         const { setor, dataInicial, dataFinal } = req.body;
         // const data=['2022-07-01 00:00:00.000-03', '2022-08-06 00:00:00.000-03']
         // pesquisa toda a tabela chamado pelo nome do setor passado e  intervalo de data

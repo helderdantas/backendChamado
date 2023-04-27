@@ -1,11 +1,11 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, Sequelize } = require('sequelize');
 
 // classe criar equipamento  para interagir com o banco de dados
 class Equipamento extends Model {
     static init(sequelize) {
         super.init({
-            ativo: DataTypes.BOOLEAN,
-            nome: DataTypes.STRING,
+            ativo: Sequelize.BOOLEAN,
+            nome: Sequelize.STRING,
         }, {
             sequelize
         })

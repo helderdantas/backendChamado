@@ -3,8 +3,11 @@
 const sequelize = require("sequelize");
 // MIGRATION PARA CRIAR A TABELA NO BANCO DE DADOS
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Chamados', {
+
+  async up(queryInterface, Sequelize) {
+    await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_chamados start 1 increment 1');
+
+    await queryInterface.createTable('Chamados', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -31,6 +34,42 @@ module.exports = {
       ilha: {
         type: Sequelize.STRING,
         allowNull: true,
+      },
+      baia: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      cputombo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cpunumeroserie: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      monitor1tombo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      monitor1numeroserie: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      monitor2tombo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      monitor2numeroserie: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      impressora: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      telefone: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       equipamentoComDefeito: {
         type: Sequelize.STRING,
@@ -67,8 +106,10 @@ module.exports = {
     })
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Chamados');
+  async down(queryInterface) {
+    await queryInterface.sequelize.query('DROP SEQUENCE id_seq_chamados');
+    await queryInterface.dropTable('chamados');
+  },
 
-  }
+ 
 };
