@@ -1,22 +1,6 @@
 version: '3.2'
 
 services:
-
-  postgres:
-    container_name: postgres_chamado
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    ports:
-      - 6500:5432
-    networks:
-      rede-chamado:
-        ipv4_address: 172.21.238.2
-
   backend:
     container_name: chamado
     build:
@@ -26,13 +10,4 @@ services:
     restart: always
     ports:
       - 3032:3032
-    networks:
-      rede-chamado:
-        ipv4_address: 172.21.238.3
-
-networks:
-  rede-chamado:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.21.238.0/24
+ 
