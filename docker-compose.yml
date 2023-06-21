@@ -1,8 +1,27 @@
-version: '3.2'
+version: '3.9'
+
+networks:
+  seec-network:
+    name: seec
 
 services:
-  backend:
+  postgres:
     container_name: chamado
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: chamados
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 6400:5432
+    networks:
+      - seec-network
+      
+  backendchamado:
+    container_name: backend-chamado
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,4 +29,26 @@ services:
     restart: always
     ports:
       - 3032:3032
+    depends_on:
+      - postgres
+    networks:
+      - seec-network
+ 
+  pgadmin:
+    container_name: pgadmin_chamado
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "medeirosh26@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    restart: always
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    networks:
+      - seec-network
+
+
+
+
  

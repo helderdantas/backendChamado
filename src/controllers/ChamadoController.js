@@ -6,10 +6,13 @@ module.exports = {
     // Método criar chamado
     async createChamado(req, res) {
         try {
-            console.log('entrei aqui')
-            const { aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
-            const chamado = await IChamado.create({ aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao })
-            res.status(200).json(`Chamado criado com sucesso.${chamado}`)
+            
+            const { nome, setor, subsetor, ilha, estacaotrabalho,  equipamentocomdefeito, equipamentotombo, equipamentonumeroserie,  descricao, equipesuport } = req.body
+            const aberto = true;
+            const status = "ABERTO";
+            const observacao = "";          
+            const chamado = await IChamado.create({ aberto, nome, setor, subsetor, ilha, estacaotrabalho,  equipamentocomdefeito, equipamentotombo, equipamentonumeroserie,  descricao, equipesuport, status, observacao})
+            res.status(200).json("Chamado criado com sucesso")
         } catch (error) {
             res.status(400).json({ error })
         }
@@ -19,8 +22,8 @@ module.exports = {
     async updateChamado(req, res) {
         try {
             const { id } = req.params;
-            const { aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora,telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao } = req.body
-            const chamado = await IChamado.update({aberto, nome, setor, subSetor, ilha, baia, cputombo, cpunumeroserie, monitor1tombo, monitor1numeroserie, monitor2tombo, monitor2numeroserie , impressora, telefone, equipamentoComDefeito, equipamentoTombo, descricao, equipeSuport, status, observacao  }, { where: { id } })
+            const { aberto, nome, setor, subsetor, ilha, estacaotrabalho,  equipamentocomdefeito, equipamentotombo, equipamentonumeroserie,  descricao, equipesuport, status, observacao } = req.body
+            const chamado = await IChamado.update({aberto, nome, setor, subsetor, ilha, estacaotrabalho,  equipamentocomdefeito, equipamentotombo, equipamentonumeroserie,  descricao, equipesuport, status, observacao  }, { where: { id } })
             res.status(200).json("Chamado atualizado com sucesso.")
         } catch (error) {
             res.status(400).json({ error })
@@ -133,13 +136,13 @@ module.exports = {
     },
 
     async chamadosPorSuport(req, res) {
-        const { equipeSuport, dataInicial, dataFinal } = req.body;
+        const { equipesuport, dataInicial, dataFinal } = req.body;
         // const data=['2022-07-01 00:00:00.000-03', '2022-08-06 00:00:00.000-03']
         // pesquisa toda a tabela chamado pelo nome do setor passado e  intervalo de data
         const { count: size, rows: solicitacoes } = await IChamado.findAndCountAll({
             where:
             {
-                equipeSuport: equipeSuport, // nome do setor a ser pesquisado
+                equipesuport: equipesuport, // nome do setor a ser pesquisado
                 createdAt: {
 
                     [Op.between]: [dataInicial, dataFinal], // intervalo de tempo a ser pesquisado
@@ -151,7 +154,7 @@ module.exports = {
 
         // se a busca não retornar vazia entra no if caso contrario entra no else
         if (size) {
-            const nome = solicitacoes[0].equipeSuport
+            const nome = solicitacoes[0].equipesuport
             res.status(200).json([nome, size])
         } else {
             const nome = 'sem dados'
@@ -162,13 +165,13 @@ module.exports = {
 
 
     async chamadosPorTipoEquipamento(req, res) {
-        const { equipamentoComDefeito, dataInicial, dataFinal } = req.body;
+        const { equipamentocomdefeito, dataInicial, dataFinal } = req.body;
         // const data=['2022-07-01 00:00:00.000-03', '2022-08-06 00:00:00.000-03']
         // pesquisa toda a tabela chamado pelo nome do setor passado e  intervalo de data
         const { count: size, rows: solicitacoes } = await IChamado.findAndCountAll({
             where:
             {
-                equipamentoComDefeito, // nome do setor a ser pesquisado
+                equipamentocomdefeito, // nome do setor a ser pesquisado
                 createdAt: {
 
                     [Op.between]: [dataInicial, dataFinal], // intervalo de tempo a ser pesquisado
@@ -180,7 +183,7 @@ module.exports = {
 
         // se a busca não retornar vazia entra no if caso contrario entra no else
         if (size) {
-            const nome = solicitacoes[0].equipamentoComDefeito
+            const nome = solicitacoes[0].equipamentocomdefeito
             res.status(200).json([ nome, size ])
         } else {
             const nome = 'sem dados'
@@ -191,10 +194,18 @@ module.exports = {
 
 
     async chamadosPorTomboEquipamento(req, res) {
-        const { equipamentoTombo } = req.body;
+        const { equipamentotombo } = req.body;
         //const {count:size, rows:solicitacoes} = await IChamado.findAndCountAll({where:{nome:'HELDER'}})
-        const { count: size, rows: solicitacoes } = await IChamado.findAndCountAll({ where: { equipamentoTombo } })
-        res.status(200).json(size + ' ' + solicitacoes[0].equipamentoTombo)
+        const { count: size, rows: solicitacoes } = await IChamado.findAndCountAll({ where: { equipamentotombo } })
+        res.status(200).json(size + ' ' + solicitacoes[0].equipamentotombo)
+
+    },
+
+    async chamadosPorNumeroSerieEquipamento(req, res) {
+        const { equipamentonumeroserie } = req.body;
+        //const {count:size, rows:solicitacoes} = await IChamado.findAndCountAll({where:{nome:'HELDER'}})
+        const { count: size, rows: solicitacoes } = await IChamado.findAndCountAll({ where: { equipamentonumeroserie } })
+        res.status(200).json(size + ' ' + solicitacoes[0].equipamentonumeroserie)
 
     },
     

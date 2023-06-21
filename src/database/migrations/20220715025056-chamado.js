@@ -6,7 +6,6 @@ module.exports = {
 
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.query('CREATE SEQUENCE id_seq_chamados start 1 increment 1');
-
     await queryInterface.createTable('Chamados', {
       id: {
         type: Sequelize.INTEGER,
@@ -27,7 +26,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      subSetor: {
+      subsetor: {
         type: Sequelize.STRING,
         allowNull: true,
       },
@@ -35,55 +34,27 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      baia: {
+      estacaotrabalho: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      cputombo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      cpunumeroserie: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      monitor1tombo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      monitor1numeroserie: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      monitor2tombo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      monitor2numeroserie: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      impressora: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      telefone: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      equipamentoComDefeito: {
+      equipamentocomdefeito: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      equipamentoTombo: {
+      equipamentotombo: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
+      },
+      equipamentonumeroserie: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       descricao: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      equipeSuport: {
+      equipesuport: {
         type: Sequelize.STRING,
         allowNull: true,
       },
@@ -108,7 +79,7 @@ module.exports = {
 
   async down(queryInterface) {
     await queryInterface.sequelize.query('DROP SEQUENCE id_seq_chamados');
-    await queryInterface.dropTable('chamados');
+    await queryInterface.dropTable('Chamados');
   },
 
  
