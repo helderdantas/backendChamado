@@ -1,7 +1,7 @@
 const { Model, Sequelize } = require('sequelize');
 
 // classe criar equipamento  para interagir com o banco de dados
-class Equipamento extends Model {
+class Equipamentos extends Model {
     static init(sequelize) {
         super.init({
             ativo: Sequelize.BOOLEAN,
@@ -12,4 +12,4 @@ class Equipamento extends Model {
     }
 }
 
-module.exports = Equipamento;
+module.exports = Equipamentos;

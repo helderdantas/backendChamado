@@ -44,11 +44,11 @@ module.exports = {
     // Lista os equipeSuports do banco de dados com o campo ativo = true 
     async listarEquipeSuportsAtivo(req, res) {
         try {
+            console.log('entrei')
             const equipeSuports = await IEquipeSuport.findAll({
                 where: { ativo: true }, // atributos
                 order: [['nome', 'ASC']] //literal 'id', ordem 'DESC'
             }) // OU 'ASC PARE ORDEM CRESCENTE
-            
             res.status(200).json(equipeSuports)
 
         } catch (error) {
