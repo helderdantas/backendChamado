@@ -1,4 +1,4 @@
-version: '3.9'
+version: 'lastest'
 
 networks:
   seec-network:
@@ -7,14 +7,14 @@ networks:
 services:
   postgres:
     container_name: chamado
-    image: postgres
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_DB: chamados
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./../pgdata:/var/lib/postgresql/data
     ports:
       - 6400:5432
     networks:
