@@ -38,7 +38,7 @@ services:
     container_name: pgadmin_chamado
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "gpg@gmail.com"
+      PGADMIN_DEFAULT_EMAIL: "gpd@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "Gpd-sistemas"
     restart: always
     ports:
